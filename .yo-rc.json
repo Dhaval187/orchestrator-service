@@ -1,0 +1,37 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.aspire.blog.orchestrator"
+    },
+    "jhipsterVersion": "6.3.1",
+    "applicationType": "microservice",
+    "baseName": "orchestrator",
+    "packageName": "com.aspire.blog.orchestrator",
+    "packageFolder": "com/aspire/blog/orchestrator",
+    "serverPort": "8081",
+    "authenticationType": "jwt",
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": true,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "mysql",
+    "prodDatabaseType": "mysql",
+    "searchEngine": false,
+    "messageBroker": "kafka",
+    "serviceDiscoveryType": "eureka",
+    "buildTool": "maven",
+    "enableSwaggerCodegen": true,
+    "jwtSecretKey": "Yzk5YWI2YTc3MDBkZGVhYTE2YTMwNmFjYjNhMjQwZDhkNmQ3YjYwNDkwMGFhZTFlYzAxMmU1NmVhOTVlNTQyMzczNDg2ZDA3NThiYjJiYWYxZGRiMDc4ZTIyMTVhYzU2YTRlYTVhN2JkN2VkYTg3MmQ4N2Y0MzBlNTdmN2ExYzQ=",
+    "embeddableLaunchScript": false,
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": false,
+    "clientPackageManager": "npm",
+    "blueprints": [],
+    "skipClient": true,
+    "skipUserManagement": true
+  }
+}
