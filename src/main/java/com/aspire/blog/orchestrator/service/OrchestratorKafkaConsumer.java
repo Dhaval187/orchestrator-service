@@ -38,6 +38,12 @@ public class OrchestratorKafkaConsumer {
 		OrderDTO orderDTO = new Gson().fromJson(order, OrderDTO.class);
 		try {
 			inventoryFeignClientInterceptor.occupyInventory(authToken, orderDTO.getInventory(), orderDTO.getId());
+
+			// complete transaction
+			orderFeignClientInterceptor.updateOrder(authToken, orderDTO.getId());
+			JsonObject responseObject = new JsonObject();
+			responseObject.addProperty("data", orderDTO.getId());
+			orchestratorKafkaProducer.sendMessage(Constants.TOPIC_ORDER_PLACED_SUCCESS, responseObject.toString());
 		} catch (Exception e) {
 			log.error("Error occured while occupy inventory : {}", e);
 			orderFeignClientInterceptor.deleteOrder(authToken, orderDTO.getId());
@@ -45,25 +51,4 @@ public class OrchestratorKafkaConsumer {
 
 	}
 
-	@KafkaListener(topics = Constants.TOPIC_INVENTORY_FAILED, groupId = "group_id")
-	public void consumeInventoryFailed(String message) {
-		log.info("Consumed message in {} : {}", Constants.TOPIC_INVENTORY_FAILED, message);
-		JsonParser jsonParser = new JsonParser();
-		JsonObject details = jsonParser.parse(message).getAsJsonObject();
-		orderFeignClientInterceptor.deleteOrder(details.get("authToken").getAsString(),
-				details.get("data").getAsLong());
-	}
-
-	@KafkaListener(topics = Constants.TOPIC_INVENTORY_SUCCESS, groupId = "group_id")
-	public void consumeInventorySuccess(String message) {
-		log.info("Consumed message in {} : {}", Constants.TOPIC_INVENTORY_SUCCESS, message);
-		JsonParser jsonParser = new JsonParser();
-		JsonObject details = jsonParser.parse(message).getAsJsonObject();
-
-		// complete transaction
-		orderFeignClientInterceptor.updateOrder(details.get("authToken").getAsString(),
-				details.get("data").getAsLong());
-		
-		orchestratorKafkaProducer.sendMessage(Constants.TOPIC_ORDER_PLACED_SUCCESS, message);
-	}
 }

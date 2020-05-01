@@ -1,7 +1,5 @@
 package com.aspire.blog.orchestrator.client;
 
-import java.net.URISyntaxException;
-
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
