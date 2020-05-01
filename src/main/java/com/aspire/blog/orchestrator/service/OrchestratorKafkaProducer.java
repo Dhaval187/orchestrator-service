@@ -8,17 +8,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class OrchestratorKafkaProducer {
 
-    private static final Logger log = LoggerFactory.getLogger(OrchestratorKafkaProducer.class);
-    private static final String TOPIC = "topic_orchestrator";
+	private static final Logger log = LoggerFactory.getLogger(OrchestratorKafkaProducer.class);
+	private static final String TOPIC = "topic_orchestrator";
 
-    private KafkaTemplate<String, String> kafkaTemplate;
+	private KafkaTemplate<String, String> kafkaTemplate;
 
-    public OrchestratorKafkaProducer(KafkaTemplate<String, String> kafkaTemplate) {
-        this.kafkaTemplate = kafkaTemplate;
-    }
+	public OrchestratorKafkaProducer(KafkaTemplate<String, String> kafkaTemplate) {
+		this.kafkaTemplate = kafkaTemplate;
+	}
 
-    public void sendMessage(String message) {
-        log.info("Producing message to {} : {}", TOPIC, message);
-        this.kafkaTemplate.send(TOPIC, message);
-    }
+	public void sendMessage(String topic, String message) {
+		log.info("Producing message to {} : {}", topic, message);
+		this.kafkaTemplate.send(topic, message);
+	}
 }
